@@ -1,5 +1,4 @@
 import { createGlobalStyle } from "styled-components";
-import { theme } from "./theme";
 
 // prettier-ignore
 
@@ -42,9 +41,14 @@ body {
     font-style: normal;
   }
   font-family: 'HBIOS-SYS',sans-serif;
+  font-size: ${props => props.theme.fontM};
   
-  background-color: ${props => props.theme.backgroundColor};
-  color: ${props => props.theme.textColor};
+  background-color: ${props => props.theme.backgroundMainColor};
+  color: ${props => props.theme.textMainColor};
+}
+a {
+  text-decoration: none;
+  color: inherit;
 }
 menu, ol, ul {
   list-style: none;
