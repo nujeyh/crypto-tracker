@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, Outlet, useMatch, useParams } from "react-router-dom";
+import styled from "styled-components";
 
 interface IInfoData {
   id: string;
@@ -62,6 +63,9 @@ interface IPriceData {
 
 const Detail = () => {
   const { coinId } = useParams();
+  const priceMatch = useMatch("/:coinId/price");
+  const chartMatch = useMatch("/:coinId/chart");
+
   const [info, setInfo] = useState<IInfoData>();
   const [price, setPrice] = useState<IPriceData>();
 
@@ -79,17 +83,99 @@ const Detail = () => {
   }, [coinId]);
 
   return (
-    <>
-      <div>{info?.rank}</div>
-      <img src={info?.logo} />
-      <div>{info?.name}</div>
-      <div>{info?.description}</div>
-      <div>{info?.started_at}</div>
-      <div>{info?.symbol}</div>
-      <div>{price?.max_supply}</div>
-      <div>{price?.total_supply}</div>
-    </>
+    <Container>
+      <Image src={info?.logo} alt="coin logo" />
+      <TitleWrap>
+        <Rank>{info?.rank}</Rank>
+        <Title>{info?.name}</Title>
+      </TitleWrap>
+      <InfoBox>
+        <div>
+          <h2>Started At</h2>
+          <div>{info?.started_at ?? "Data Not Found."}</div>
+        </div>
+        <div>
+          <h2>Symbol</h2>
+          <div>{info?.symbol}</div>
+        </div>
+      </InfoBox>
+      <Description>{info?.description}</Description>
+      <InfoBox>
+        <div>
+          <h2>Max Supply</h2>
+          <div>
+            {price?.max_supply === 0 ? "Data Not Found." : price?.max_supply}
+          </div>
+        </div>
+        <div>
+          <h2>Total Supply</h2>
+          <div>{price?.total_supply}</div>
+        </div>
+      </InfoBox>
+      <Tabs>
+        <Link to={`/${coinId}/price`}>
+          <Tab isActive={priceMatch !== null}>Price</Tab>
+        </Link>
+        <Link to={`/${coinId}/chart`}>
+          <Tab isActive={chartMatch !== null}>Chart</Tab>
+        </Link>
+      </Tabs>
+      <Outlet />
+    </Container>
   );
 };
+
+const Container = styled.main`
+  max-width: 700px;
+  margin: auto;
+`;
+const Image = styled.img`
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+`;
+const TitleWrap = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  max-width: fit-content;
+  margin: auto;
+`;
+const Rank = styled.div`
+  display: inline-block;
+  border-radius: 100px;
+  text-align: center;
+  color: ${(props) => props.theme.mainColor};
+  font-size: ${(props) => props.theme.fontXL};
+`;
+const Title = styled.h1`
+  display: inline;
+  font-size: ${(props) => props.theme.fontXL};
+`;
+const InfoBox = styled.div`
+  display: flex;
+  border-radius: 10px;
+  padding: 15px 20px;
+  justify-content: space-between;
+  text-align: center;
+  background-color: ${(props) => props.theme.backgroundSubColor};
+  h2 {
+    font-size: ${(props) => props.theme.fontS};
+  }
+`;
+const Description = styled.div`
+  color: ${(props) => props.theme.textSubColor};
+`;
+const Tabs = styled.div`
+  display: flex;
+  border-bottom: solid 2px ${(props) => props.theme.mainColor};
+  gap: 20px;
+`;
+const Tab = styled.div<{ isActive: boolean }>`
+  color: ${(props) =>
+    props.isActive ? props.theme.mainColor : props.theme.textSubColor};
+  font-size: ${(props) => props.theme.fontL};
+`;
 
 export default Detail;
