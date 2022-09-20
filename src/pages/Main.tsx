@@ -67,7 +67,7 @@ const ListElement = styled.li`
   background-color: ${(props) => props.theme.backgroundSubColor};
   margin-bottom: 10px;
   padding: 15px 20px;
-  border-radius: 10px;
+  border-radius: ${(props) => props.theme.borderRadius};
   display: flex;
   align-items: center;
   &:hover {
