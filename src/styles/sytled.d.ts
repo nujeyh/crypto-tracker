@@ -8,6 +8,8 @@ declare module "styled-components" {
     textSubColor: string;
     mainColor: string;
 
+    borderRadius: string;
+
     fontXL: string;
     fontL: string;
     fontM: string;

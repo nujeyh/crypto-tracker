@@ -7,6 +7,8 @@ export const theme: DefaultTheme = {
   textSubColor: "#EBEBF599",
   mainColor: "#fdcb6e",
 
+  borderRadius: "10px",
+
   fontXL: "40px",
   fontL: "30px",
   fontM: "20px",
