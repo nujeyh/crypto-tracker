@@ -144,19 +144,20 @@ const TitleWrap = styled.div`
 `;
 const Rank = styled.div`
   display: inline-block;
-  border-radius: 100px;
   text-align: center;
   color: ${(props) => props.theme.mainColor};
   font-size: ${(props) => props.theme.fontXL};
 `;
 const Title = styled.h1`
   display: inline;
+  margin: 20px 0;
   font-size: ${(props) => props.theme.fontXL};
 `;
 const InfoBox = styled.div`
   display: flex;
-  border-radius: 10px;
+  border-radius: ${(props) => props.theme.borderRadius};
   padding: 15px 20px;
+  margin: 20px 0;
   justify-content: space-between;
   text-align: center;
   background-color: ${(props) => props.theme.backgroundSubColor};
