@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link, Outlet, useMatch, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { fetchCoinInfo, fetchCoinPrice } from "../api";
 
 interface IInfoData {
   id: string;
@@ -66,50 +67,49 @@ const Detail = () => {
   const priceMatch = useMatch("/:coinId/price");
   const chartMatch = useMatch("/:coinId/chart");
 
-  const [info, setInfo] = useState<IInfoData>();
-  const [price, setPrice] = useState<IPriceData>();
+  const { isLoading: isInfoLoading, data: infoData } = useQuery<IInfoData>(
+    ["info", coinId],
+    () => fetchCoinInfo(coinId)
+  );
+  const { isLoading: isPriceLoading, data: priceData } = useQuery<IPriceData>(
+    ["price", coinId],
+    () => fetchCoinPrice(coinId)
+  );
 
-  useEffect(() => {
-    (async () => {
-      const infoData = await (
-        await fetch(`https://api.coinpaprika.com/v1/coins/${coinId}`)
-      ).json();
-      const priceData = await (
-        await fetch(`https://api.coinpaprika.com/v1/tickers/${coinId}`)
-      ).json();
-      setInfo(infoData);
-      setPrice(priceData);
-    })();
-  }, [coinId]);
+  const loading = isInfoLoading || isPriceLoading;
+
+  if (loading) return <div>loading...</div>;
 
   return (
     <Container>
-      <Image src={info?.logo} alt="coin logo" />
+      <Image src={infoData?.logo} alt="coin logo" />
       <TitleWrap>
-        <Rank>{info?.rank}</Rank>
-        <Title>{info?.name}</Title>
+        <Rank>{infoData?.rank}</Rank>
+        <Title>{infoData?.name}</Title>
       </TitleWrap>
       <InfoBox>
         <div>
           <h2>Started At</h2>
-          <div>{info?.started_at ?? "Data Not Found."}</div>
+          <div>{infoData?.started_at ?? "Data Not Found."}</div>
         </div>
         <div>
           <h2>Symbol</h2>
-          <div>{info?.symbol}</div>
+          <div>{infoData?.symbol}</div>
         </div>
       </InfoBox>
-      <Description>{info?.description}</Description>
+      <Description>{infoData?.description}</Description>
       <InfoBox>
         <div>
           <h2>Max Supply</h2>
           <div>
-            {price?.max_supply === 0 ? "Data Not Found." : price?.max_supply}
+            {priceData?.max_supply === 0
+              ? "Data Not Found."
+              : priceData?.max_supply}
           </div>
         </div>
         <div>
           <h2>Total Supply</h2>
-          <div>{price?.total_supply}</div>
+          <div>{priceData?.total_supply}</div>
         </div>
       </InfoBox>
       <Tabs>
