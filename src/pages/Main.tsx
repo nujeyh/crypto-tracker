@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { fetchCoins } from "../api";
 
 interface ICoinData {
   id: string;
@@ -13,32 +14,22 @@ interface ICoinData {
 }
 
 const Main = () => {
-  const [coins, setCoins] = useState<ICoinData[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    (async () => {
-      const response = await fetch("https://api.coinpaprika.com/v1/coins");
-      const json = await response.json();
-      setCoins(json.slice(0, 100));
-      setLoading(false);
-    })();
-  }, []);
+  const { isLoading, data } = useQuery<ICoinData[]>("allCoins", fetchCoins);
 
   return (
     <Container>
       <Header>
-        <Title>COIN TRACKER</Title>
+        <Title>CRYPTO TRACKER</Title>
       </Header>
-      {loading ? (
+      {isLoading ? (
         "loading"
       ) : (
         <ul>
-          {coins.map((coin) => (
+          {data?.slice(0, 100).map((coin) => (
             <Link to={`/${coin.id}`} key={coin.id}>
               <ListElement key={coin.id}>
                 <Icon
-                  alt="coin icon"
+                  alt="logo"
                   src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
                 />
                 {coin.name} &rarr;
