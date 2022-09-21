@@ -90,7 +90,7 @@ const Detail = () => {
       <InfoBox>
         <div>
           <h2>Started At</h2>
-          <div>{infoData?.started_at ?? "Data Not Found."}</div>
+          <div>{infoData?.started_at.split("T")[0] ?? "No Data"}</div>
         </div>
         <div>
           <h2>Symbol</h2>
@@ -102,9 +102,7 @@ const Detail = () => {
         <div>
           <h2>Max Supply</h2>
           <div>
-            {priceData?.max_supply === 0
-              ? "Data Not Found."
-              : priceData?.max_supply}
+            {priceData?.max_supply === 0 ? "No Data" : priceData?.max_supply}
           </div>
         </div>
         <div>
@@ -113,11 +111,11 @@ const Detail = () => {
         </div>
       </InfoBox>
       <Tabs>
-        <Link to={`/${coinId}/price`}>
-          <Tab isActive={priceMatch !== null}>Price</Tab>
-        </Link>
         <Link to={`/${coinId}/chart`}>
           <Tab isActive={chartMatch !== null}>Chart</Tab>
+        </Link>
+        <Link to={`/${coinId}/price`}>
+          <Tab isActive={priceMatch !== null}>Price</Tab>
         </Link>
       </Tabs>
       <Outlet />
@@ -162,6 +160,7 @@ const InfoBox = styled.div`
   text-align: center;
   background-color: ${(props) => props.theme.backgroundSubColor};
   h2 {
+    margin-bottom: 5px;
     font-size: ${(props) => props.theme.fontS};
   }
 `;
