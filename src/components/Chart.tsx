@@ -29,19 +29,21 @@ const Chart = () => {
         series={[
           {
             name: "Price",
-            data: data?.map((price) => Number(price.close)) as number[],
+            data: data?.map((price) => Number(price?.close)) as number[],
           },
         ]}
         options={{
           theme: {
             mode: "dark",
           },
+          colors: ["#fdcb6e"],
           chart: {
             toolbar: {
               show: false,
             },
-            height: 500,
+            height: 300,
             width: 500,
+            background: "transparent",
           },
           grid: {
             show: false,
@@ -51,7 +53,60 @@ const Chart = () => {
             width: 4,
           },
           markers: {
-            size: 3,
+            size: 7,
+            strokeWidth: 4,
+            strokeOpacity: 0,
+            colors: ["#fdcb6e"],
+            strokeColors: ["#000"],
+          },
+          tooltip: {
+            style: {
+              fontFamily: "HBIOS-SYS, sans-serif",
+              fontSize: "14px",
+            },
+            x: {
+              show: false,
+            },
+            y: {
+              formatter: (value) => {
+                return value > 2
+                  ? `$${value.toLocaleString()}`
+                  : `$${value.toFixed(4)}`;
+              },
+            },
+            onDatasetHover: { highlightDataSeries: true },
+          },
+          xaxis: {
+            type: "datetime",
+            labels: {
+              datetimeFormatter: { day: "MMM dd" },
+              style: {
+                fontFamily: "HBIOS-SYS, sans-serif",
+                fontSize: "14px",
+              },
+            },
+            categories: data?.map((price) =>
+              new Date(price.time_close * 1000).toISOString()
+            ),
+            axisTicks: {
+              show: false,
+            },
+          },
+          yaxis: {
+            labels: {
+              style: {
+                fontFamily: "HBIOS-SYS, sans-serif",
+                fontSize: "14px",
+              },
+              formatter: (value) => {
+                return value > 2
+                  ? `$${value.toLocaleString()}`
+                  : `$${value.toFixed(4)}`;
+              },
+            },
+            axisBorder: {
+              show: true,
+            },
           },
         }}
       />
