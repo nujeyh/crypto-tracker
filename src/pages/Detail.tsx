@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { Link, Outlet, useMatch, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Helmet } from "react-helmet";
 import { fetchCoinInfo, fetchCoinPrice } from "../api";
 
 interface IInfoData {
@@ -73,7 +74,8 @@ const Detail = () => {
   );
   const { isLoading: isPriceLoading, data: priceData } = useQuery<IPriceData>(
     ["price", coinId],
-    () => fetchCoinPrice(coinId)
+    () => fetchCoinPrice(coinId),
+    { refetchInterval: 5000 }
   );
 
   const loading = isInfoLoading || isPriceLoading;
@@ -82,15 +84,19 @@ const Detail = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>CrypT | {infoData?.name}</title>
+      </Helmet>
       <Image src={infoData?.logo} alt="coin logo" />
       <TitleWrap>
         <Rank>{infoData?.rank}</Rank>
         <Title>{infoData?.name}</Title>
       </TitleWrap>
+      <Price>${priceData?.quotes.USD.price.toLocaleString()}</Price>
       <InfoBox>
         <div>
           <h2>Started At</h2>
-          <div>{infoData?.started_at.split("T")[0] ?? "No Data"}</div>
+          <div>{infoData?.started_at?.split("T")[0] ?? "No Data"}</div>
         </div>
         <div>
           <h2>Symbol</h2>
@@ -150,6 +156,9 @@ const Title = styled.h1`
   display: inline;
   margin: 20px 0;
   font-size: ${(props) => props.theme.fontXL};
+`;
+const Price = styled.div`
+  text-align: center;
 `;
 const InfoBox = styled.div`
   display: flex;
