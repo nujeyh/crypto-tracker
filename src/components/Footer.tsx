@@ -16,7 +16,7 @@ const Footer = () => {
 const Container = styled.footer`
   text-align: center;
   margin: auto;
-  padding: 10px;
+  padding-bottom: 30px;
   max-width: ${(props) => props.theme.maxWidth};
   color: ${(props) => props.theme.textSubColor};
   div {
