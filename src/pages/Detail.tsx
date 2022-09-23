@@ -130,8 +130,9 @@ const Detail = () => {
 };
 
 const Container = styled.main`
-  max-width: 700px;
+  max-width: ${(props) => props.theme.maxWidth};
   margin: auto;
+  padding: 70px 10px;
 `;
 const Image = styled.img`
   display: block;
