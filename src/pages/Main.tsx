@@ -22,9 +22,9 @@ const Main = () => {
       <Helmet>
         <title>CrypT</title>
       </Helmet>
-      {/* <Header>
+      <Header>
         <Title>CRYPTO TRACKER</Title>
-      </Header> */}
+      </Header>
       {isLoading ? (
         "loading"
       ) : (
@@ -51,7 +51,7 @@ const Main = () => {
 const Container = styled.main`
   max-width: ${(props) => props.theme.maxWidth};
   margin: auto;
-  padding: 100px 10px;
+  padding: 50px 10px;
 `;
 const Header = styled.header`
   height: 10vh;
@@ -68,6 +68,9 @@ const ListElement = styled.li`
   border-radius: ${(props) => props.theme.borderRadius};
   display: flex;
   align-items: center;
+  box-shadow: 0px 1px 1px 0px hsla(0, 0%, 0%, 0.14),
+    0px 2px 1px -1px hsla(0, 0%, 0%, 0.12), 0px 1px 3px 0px hsla(0, 0%, 0%, 0.2);
+
   &:hover {
     color: ${(props) => props.theme.mainColor};
     background-color: #494949;
@@ -75,6 +78,17 @@ const ListElement = styled.li`
   }
   span {
     margin-left: auto;
+  }
+  animation: 0.6s ease-in-out loadEffect;
+  @keyframes loadEffect {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0px);
+    }
   }
 `;
 const Icon = styled.img`
