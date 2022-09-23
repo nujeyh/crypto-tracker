@@ -14,5 +14,7 @@ declare module "styled-components" {
     fontL: string;
     fontM: string;
     fontS: string;
+
+    maxWidth: string;
   }
 }
