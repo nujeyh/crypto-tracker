@@ -22,9 +22,9 @@ const Main = () => {
       <Helmet>
         <title>CrypT</title>
       </Helmet>
-      <Header>
+      {/* <Header>
         <Title>CRYPTO TRACKER</Title>
-      </Header>
+      </Header> */}
       {isLoading ? (
         "loading"
       ) : (
@@ -36,7 +36,9 @@ const Main = () => {
                   alt="logo"
                   src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
                 />
-                {coin.name} &rarr;
+                <Rank>{coin.rank}</Rank>
+                {coin.name}
+                <span>&rarr;</span>
               </ListElement>
             </Link>
           ))}
@@ -47,8 +49,9 @@ const Main = () => {
 };
 
 const Container = styled.main`
-  max-width: 700px;
+  max-width: ${(props) => props.theme.maxWidth};
   margin: auto;
+  padding: 100px 10px;
 `;
 const Header = styled.header`
   height: 10vh;
@@ -67,12 +70,20 @@ const ListElement = styled.li`
   align-items: center;
   &:hover {
     color: ${(props) => props.theme.mainColor};
-    transition: color 0.2s ease-in;
+    background-color: #494949;
+    transition: all 0.2s ease-in;
+  }
+  span {
+    margin-left: auto;
   }
 `;
 const Icon = styled.img`
   height: 30px;
   margin-right: 10px;
+`;
+const Rank = styled.div`
+  color: ${(props) => props.theme.mainColor};
+  margin-right: 8px;
 `;
 
 export default Main;
