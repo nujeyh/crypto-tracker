@@ -132,7 +132,7 @@ const Detail = () => {
 const Container = styled.main`
   max-width: ${(props) => props.theme.maxWidth};
   margin: auto;
-  padding: 70px 10px;
+  padding: 50px 10px;
 `;
 const Image = styled.img`
   display: block;
