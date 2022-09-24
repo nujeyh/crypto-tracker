@@ -15,6 +15,10 @@ interface IHistory {
   time_open: number;
   volume: string;
 }
+interface IChartData {
+  x: number;
+  y: number[];
+}
 
 const Chart = () => {
   const { coinId } = useParams();
@@ -23,16 +27,28 @@ const Chart = () => {
     ["coinHistory", coinId],
     () => fetchCoinHistory(coinId)
   );
+
+  const chartData = data?.map((element) => {
+    return {
+      x: element.time_close * 1000,
+      y: [
+        Number(element.open),
+        Number(element.high),
+        Number(element.low),
+        Number(element.close),
+      ],
+    };
+  }) as IChartData[];
+
   if (isLoading) return <div>loading</div>;
 
   return (
     <div>
       <ApexChart
-        type="line"
+        type="candlestick"
         series={[
           {
-            name: "Price",
-            data: data?.map((price) => Number(price?.close)) as number[],
+            data: chartData,
           },
         ]}
         options={{
@@ -41,6 +57,7 @@ const Chart = () => {
           },
           colors: ["#fdcb6e"],
           chart: {
+            type: "candlestick",
             toolbar: {
               show: false,
             },
