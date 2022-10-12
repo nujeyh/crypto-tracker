@@ -21,7 +21,6 @@ const Price = () => {
     [USD.percent_change_1y, "1 Year"],
   ];
 
-  console.log(USD);
   return (
     <Container>
       {percentChanges.map((percent) => {
