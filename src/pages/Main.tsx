@@ -20,7 +20,7 @@ const Main = () => {
   return (
     <Container>
       <Helmet>
-        <title>CrypT</title>
+        <title>CRYPTO TRACKER</title>
       </Helmet>
       <Header>
         <Title>CRYPTO TRACKER</Title>
@@ -30,7 +30,7 @@ const Main = () => {
       ) : (
         <ul>
           {data?.slice(0, 100).map((coin) => (
-            <Link to={`/${coin.id}`} key={coin.id}>
+            <Link to={`/${coin.id}/chart`} key={coin.id}>
               <ListElement key={coin.id}>
                 <Icon
                   alt="logo"
