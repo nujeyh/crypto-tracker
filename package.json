@@ -13,6 +13,7 @@
     "@types/react-helmet": "^6.1.5",
     "@types/styled-components": "^5.1.26",
     "apexcharts": "^3.35.5",
+    "gh-pages": "^4.0.0",
     "nth-check": "^2.1.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
@@ -31,7 +32,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -50,5 +53,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "homepage": "https://nujeyh.github.io/crypto-tracker"
 }

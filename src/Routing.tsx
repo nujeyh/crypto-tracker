@@ -8,7 +8,7 @@ import Float from "./components/Float";
 
 const Routing = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Float />
       <Routes>
         <Route path="/" element={<Main />} />
