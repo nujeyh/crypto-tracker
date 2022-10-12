@@ -85,7 +85,7 @@ const Detail = () => {
   return (
     <Container>
       <Helmet>
-        <title>CrypT | {infoData?.name}</title>
+        <title>{infoData?.name}</title>
       </Helmet>
       <Image src={infoData?.logo} alt="coin logo" />
       <TitleWrap>
@@ -120,7 +120,7 @@ const Detail = () => {
         <Link to={`/${coinId}/chart`}>
           <Tab isActive={chartMatch !== null}>Chart</Tab>
         </Link>
-        <Link to={`/${coinId}/price`}>
+        <Link to={`/${coinId}/price`} state={{ priceData }}>
           <Tab isActive={priceMatch !== null}>Price</Tab>
         </Link>
       </Tabs>
