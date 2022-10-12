@@ -1,11 +1,13 @@
 # CRYPTO TRACKER
 
 > 암호화폐 모아보기   
-> [🔗 Link](https://nujeyh.github.io/crypto-tracker)
+> [🔗 Link &rarr;](https://nujeyh.github.io/crypto-tracker)
 
 - 차트 및 가격 정보 제공
-- 다크 / 라이트 모드 전환 가능
+<img src="https://user-images.githubusercontent.com/102746846/195358443-118a3691-fddd-43ef-bbf2-00a75eaa52f7.png" width=450 />
 
+- 다크 / 라이트 모드 전환 가능
+<img src="https://user-images.githubusercontent.com/102746846/195359711-fedd5b5e-a828-4598-8239-669d602d3429.gif" width=450 />
 
 ----
 
