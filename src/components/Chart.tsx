@@ -55,7 +55,6 @@ const Chart = () => {
           theme: {
             mode: isDark ? "dark" : "light",
           },
-          colors: ["#fdcb6e"],
           chart: {
             type: "candlestick",
             toolbar: {
@@ -68,16 +67,13 @@ const Chart = () => {
           grid: {
             show: false,
           },
-          stroke: {
-            curve: "smooth",
-            width: 4,
-          },
-          markers: {
-            size: 6,
-            strokeWidth: 3,
-            strokeOpacity: 0,
-            colors: ["#fdcb6e"],
-            strokeColors: ["#000"],
+          plotOptions: {
+            candlestick: {
+              colors: {
+                upward: "#dc143c",
+                downward: "#4169e1",
+              },
+            },
           },
           tooltip: {
             style: {
